@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "test:unit": "vitest run --config vitest.config.ts tests/unit/",
+    "test:integration": "vitest run --config vitest.config.ts tests/integration/",
+    "test:layer1": "npm run test:unit && npm run test:integration",
+    "test:layer2": "bun scripts/validate-dart.ts --mode critical",
+    "test:tier3": "bun tests/e2e/run-matrix.ts",
+    "test:preflight": "npm run test:layer1 && npm run test:layer2"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
@@ -43,10 +49,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/ui": "^4.1.5",
+    "bun-types": "^1.3.13",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.0.17"
+    "vitest": "^4.1.5",
+    "yaml": "^2.8.4"
   }
 }
